@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { Server } from "../server-model";
 
 @Component({
     selector: 'app-server',
@@ -10,18 +11,5 @@ import { Component } from "@angular/core";
     `],
 })
 export class ServerComponent{
-    serverID = 10;
-    serverStatus = 'offline';
-
-    constructor() {
-        this.serverStatus = Math.random() > 0.5 ? 'online' : 'offline';
-    }
-
-    getServerStatus() {
-        return this.serverStatus;
-    }
-
-    getColor() {
-        return this.serverStatus === 'online' ? 'lightgreen' : 'red'
-    }
+   @Input() serverElement: Server;
 }

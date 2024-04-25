@@ -1,15 +1,8 @@
-<!-- <div class="container">
+<div class="container">
+  <app-cockpit (svCreated)="onServerAdded($event)" (bpCreated)="onBlueprintAdded($event)"></app-cockpit>
   <div class="row">
     <div class="col-xs-12">
-      <h3> im in the app component</h3>
-       <hr>
-      <app-server> </app-server>
-      <hr> -->
-      <!-- <app-servers> </app-servers> -->
-      <!-- <app-warning-alert>
-        <app-success-alert></app-success-alert>
-      </app-warning-alert> -->
-    <!-- </div>
+      <app-servers [serverList]="serverElements"></app-servers>
+    </div>
   </div>
-</div> -->
-<app-servers></app-servers>
+</div>
