@@ -36,6 +36,12 @@ export class RecipeService {
       addIngToShoppingList(ingredients: Ingredient[]) {
         this.shoppingListService.addIngredients(ingredients)
       }
-    
+      getRecipe(id: number) {
+        const found = this.recipes.findIndex((ele: Recipe, index) => index === id);
+        if (found > 0) {
+          return this.recipes[found];
+        } 
+        return null;
+      }
       constructor(private shoppingListService: ShoppingListService) { }
 }
