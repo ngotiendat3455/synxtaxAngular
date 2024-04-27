@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post, Product } from './post.model';
-import { debounce, map, timer } from 'rxjs';
+import { Subject, debounce, map, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
+  error = new Subject();
   base_url: string =
     'https://dummyjson.com/';
 
@@ -25,9 +26,17 @@ export class ProductService {
       "images": [
       ]
     };
-    this.http.post<any>(this.base_url + 'products/add', postData).subscribe((responseData) => {
-      console.log(responseData);
-    })
+    this.http.post<any>(this.base_url + 'products/add', postData).subscribe(
+      {
+        next: (v) => {
+          console.log(v);
+        },
+        error: (e) => {
+          console.log(e);
+          this.error.next(e.message);
+        }
+      }
+    )
   }
 
   fetchProducts() {

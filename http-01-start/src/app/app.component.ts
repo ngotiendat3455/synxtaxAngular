@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { Product } from './post.model';
 import { ProductService } from './posts.service';
 
@@ -12,10 +12,11 @@ import { ProductService } from './posts.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   loadedPosts: Product[] = [];
   isFetching: boolean = false;
   isError: string = null;
+  errorSub: Subscription;
   // firebase_url: string =
   //   'https://ng-complete-guide-a2859-default-rtdb.firebaseio.com/';
 
@@ -23,8 +24,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.postServiceSubscribe();
+    this.errorSub = this.postService.error.subscribe((errorMessage) => {
+      this.isError = errorMessage as string;
+    });
   }
 
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe();
+  }
   // send and store json object to FireBase
   // 'posts.json' is the file directory
   // -----------------------------------------------------------------------
