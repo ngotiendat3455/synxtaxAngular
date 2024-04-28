@@ -7,7 +7,6 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers: [RecipeService]
 })
 export class RecipesComponent {
   constructor() { }
