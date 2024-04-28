@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RecipeService } from './recipes/recipe.service';
 // import { NestedComponent } from './auth/nested/nested.component';
 import { AuthComponent } from './auth/auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthComponent } from './auth/auth/auth.component';
     DropdownDirective,
     RecipeEditComponent,
     AuthComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

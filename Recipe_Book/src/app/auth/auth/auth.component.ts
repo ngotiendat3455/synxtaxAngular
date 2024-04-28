@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -9,6 +10,9 @@ import { AuthService } from '../auth.service';
 })
 export class AuthComponent {
   loginMode = false;
+
+  isLoading = false;
+  error: string = null;
 
   @ViewChild('f', { static: false }) authForm: NgForm;
 
@@ -22,19 +26,25 @@ export class AuthComponent {
     const email = form.value.email;
     const pswrd = form.value.password;
     console.log(form.value);
-
+    let authObsv: Observable<any>;
+    this.isLoading = true;
     if (this.loginMode) {
+      authObsv = this.authService.login(email, pswrd);
     } else {
-      this.authService.signUp(email, pswrd).subscribe(
-        (resData) => {
-          console.log(resData);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      authObsv = this.authService.signUp(email, pswrd)
     }
+    authObsv.subscribe(
+      (resData) => {
+        console.log(resData);
+        this.isLoading = false;
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.error = errorMessage;
 
+        this.isLoading = false;
+      }
+    );
     form.reset();
   }
 }
