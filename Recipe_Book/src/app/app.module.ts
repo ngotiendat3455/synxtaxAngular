@@ -16,6 +16,8 @@ import { AppRoutingModule } from './app-routing-module';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipeService } from './recipes/recipe.service';
+// import { NestedComponent } from './auth/nested/nested.component';
+import { AuthComponent } from './auth/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { RecipeService } from './recipes/recipe.service';
     ShoppingEditComponent,
     DropdownDirective,
     RecipeEditComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
