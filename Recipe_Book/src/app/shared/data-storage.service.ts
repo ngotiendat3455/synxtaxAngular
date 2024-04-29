@@ -4,6 +4,7 @@ import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe-model';
 import { map, tap } from 'rxjs';
 import { Ingredient } from './ingredient-model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { Ingredient } from './ingredient-model';
 export class DataStorageService {
   FireBaseURL = 'https://dummyjson.com/';
 
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+  constructor(private http: HttpClient, private recipeService: RecipeService, private authService: AuthService) {}
 
   recipeStore() {
     // const recipes = this.recipeService.getRecipes();
