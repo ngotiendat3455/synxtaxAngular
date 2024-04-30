@@ -19,6 +19,8 @@ import { RecipeService } from './recipes/recipe.service';
 // import { NestedComponent } from './auth/nested/nested.component';
 import { AuthComponent } from './auth/auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { HelperDirective } from './shared/helper/helper.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    AlertComponent,
+    HelperDirective,
   ],
   imports: [
     BrowserModule,
