@@ -9,20 +9,19 @@ import { selectCount } from './counter-store/counter.selector';
 @Injectable()
 export class CounterEffects {
     constructor(private actions$: Actions,  private store: Store<{ counter: number }>) {}
-    loadCount = createEffect(
-        () => 
-            this.actions$.pipe(
-                ofType(init),
-                switchMap(() => {
-                    const storeCount = localStorage.getItem('count');
-                    if (storeCount) {
-                        return of(set({ value: +storeCount })); // of() method wraps methods into an observable
-                      }
-                      return of(set({ value: 0 }));
-                })
-            ),
-        { dispatch: false }
-    )
+    loadCount = createEffect(() =>
+        this.actions$.pipe(
+          ofType(init),
+          switchMap(() => {
+            // returns an observable
+            const storeCount = localStorage.getItem('count');
+            if (storeCount) {
+              return of(set({ value: +storeCount })); // of() method wraps methods into an observable
+            }
+            return of(set({ value: 0 }));
+          })
+        )
+      );
     saveCount = createEffect(
         () => 
             this.actions$.pipe(
