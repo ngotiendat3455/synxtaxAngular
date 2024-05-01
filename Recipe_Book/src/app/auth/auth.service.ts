@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, catchError, tap, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as authActions from '../auth/store/auth.actions';
 
 interface AuthResponseData {
   id: number,
@@ -23,7 +26,7 @@ interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  // user = new BehaviorSubject<User>(null);
   // signs up and logs in to FireBase
   postKey = 'https://dummyjson.com/users';
   tokenTimer: any;
@@ -53,7 +56,14 @@ export class AuthService {
 
       this.getPermission(userData._token).subscribe(
         (resData) => {
-          this.user.next(resData);
+          // const user = new User(email, userid, token, date);
+          // this.user.next(resData);
+          this.store.dispatch(new authActions.AuthSuccess({
+            email: resData.email,
+            userID: resData.id,
+            token: userData._token,
+            expirationDate: new Date(userData._tokenExpiration)
+          }))
           const duration = new Date(userData._token).getTime() - new Date().getTime();
           this.autoLogout(duration);
         },
@@ -116,7 +126,8 @@ export class AuthService {
   }
 
   logout() {
-    this.user.next(null);
+    // this.user.next(null);
+    this.store.dispatch(new authActions.Logout());
     this.router.navigate(['/auth']);
     localStorage.setItem('userData', null);
   }
@@ -137,7 +148,13 @@ export class AuthService {
     console.log('logout', expires,' ',expires * 1000)
     this.autoLogout(expires * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
-    this.user.next(user);
+    this.store.dispatch(new authActions.AuthSuccess({
+      email: email,
+      userID: userid,
+      token: token,
+      expirationDate: date
+    }))
+    // this.user.next(user);
   }
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>) {}
 }

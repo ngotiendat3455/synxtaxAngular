@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' }, // starting path on first load
     {
         path: 'recipes', component: RecipesComponent, 
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children:
             [
                 { path: '', component: RecipeStartComponent },
