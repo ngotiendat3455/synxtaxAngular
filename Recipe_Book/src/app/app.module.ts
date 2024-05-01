@@ -21,6 +21,8 @@ import { AuthComponent } from './auth/auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { HelperDirective } from './shared/helper/helper.directive';
+import { StoreModule } from '@ngrx/store';
+import * as fromAppState from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { HelperDirective } from './shared/helper/helper.directive';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot(fromAppState.appReducer)
   ],
   providers: [ShoppingListService, RecipeService],
   bootstrap: [AppComponent]
