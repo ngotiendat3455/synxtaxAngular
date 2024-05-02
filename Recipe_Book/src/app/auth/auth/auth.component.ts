@@ -28,8 +28,8 @@ export class AuthComponent implements OnInit{
   @ViewChild('f', { static: false }) authForm: NgForm;
 
   constructor(
-    private authService: AuthService, 
-    private router: Router, 
+    // private authService: AuthService, 
+    // private router: Router, 
     private c: ComponentFactoryResolver,
     private store: Store<fromApp.AppState>
   ) {}

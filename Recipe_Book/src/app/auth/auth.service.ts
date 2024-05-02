@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as authActions from '../auth/store/auth.actions';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   id: number,
   username: string,
   firstName: string,
